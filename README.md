@@ -13,18 +13,20 @@ These are the feature that were implemented:
 All the services are available in multiple docker images
 
 ```
-docker-compose build
-docker-compose run server rails db:create db:migrate
+sudo docker-compose build
+sudo docker-compose run server rails db:create db:migrate
 ```
 
 And then
 
 ```
-docker-compose up
+sudo docker-compose up
 ```
 
 There're a couple of seeds that we need to run, but we need to wait until elasticsearch finishes initializing, once everything is running we can run
 
 ```
-docker-compose exec server rails db:seed
+sudo docker-compose exec server rails db:seed
 ```
+
+Now you should be able to open the client react app in localhost:5000
