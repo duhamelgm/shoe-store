@@ -1,0 +1,96 @@
+services:
+  # Services: DB, ES and Redis
+  db:
+    image: postgres
+    volumes:
+      - ./server/tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+    mem_limit: 512m
+    mem_reservation: 128M
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+    environment:
+      discovery.type: single-node
+    ports:
+      - "9200:9200"
+    mem_limit: 512m
+    mem_reservation: 128M
+  redis:
+    image: redis
+    mem_limit: 512m
+    mem_reservation: 128M
+
+  # Client
+  client:
+    build: ./client
+    volumes:
+      - ./client:/app
+    ports:
+      - "5000:3000"
+    mem_limit: 1G
+    mem_reservation: 512M
+
+  # Backend API Server
+  server:
+    build: ./server
+    image: duhamelgm/shoe-store_server
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - ./server:/app
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - db
+      - elasticsearch
+      - redis
+      - worker
+    mem_limit: 512m
+    mem_reservation: 128M
+  # Backend Sidekiq instance
+  worker:
+    image: duhamelgm/shoe-store_server
+    command: bundle exec sidekiq -e ${RAILS_ENV:-development} -c 10 -q default
+    volumes:
+      - ./server:/app
+    environment:
+      RAILS_ENV: development
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      REDIS_URL: redis://redis:6379
+    depends_on:
+      - db
+      - elasticsearch
+      - redis
+    mem_limit: 512m
+    mem_reservation: 128M
+  # Backend websocket rake task
+  websocket_receiver:
+    image: duhamelgm/shoe-store_server
+    command: bundle exec rails runner inventory_receiver.rb
+    volumes:
+      - ./server:/app
+    environment:
+      RAILS_ENV: development
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      REDIS_URL: redis://redis:6379
+      WEBSOCKET_URL: ws://websocket_sender:8080
+    depends_on:
+      - db
+      - elasticsearch
+      - redis
+    mem_limit: 128m
+    mem_reservation: 64m
+  # Base websocket sender
+  websocket_sender:
+    build: ./stores
+    command: ./bin/websocketd --port=8080 ruby inventory.rb
+    volumes:
+      - ./stores:/sender
+    ports:
+      - "8080:8080"
+    mem_limit: 128m
+    mem_reservation: 64m
