@@ -26,5 +26,5 @@ docker-compose up
 There're a couple of seeds that we need to run, but we need to wait until elasticsearch finishes initializing, once everything is running we can run
 
 ```
-docker-compose run server rails db:seed
+docker-compose exec server rails db:seed
 ```
