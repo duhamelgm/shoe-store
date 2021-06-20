@@ -30,3 +30,7 @@ code {
 hr {
   border-color: #d1d5db;
 }
+
+.graphs-card {
+  height: 400px;
+}

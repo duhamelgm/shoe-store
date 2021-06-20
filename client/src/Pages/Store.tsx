@@ -20,7 +20,7 @@ export default function Stores() {
   return (
     <div className="max-w-6xl mx-auto mt-8 pb-16">
       <h1 className="mb-3 font-bold text-xl">
-        <Link to="/" className="underline">
+        <Link to="/stores" className="underline">
           Stores
         </Link>{" "}
         {">"} {store.name}

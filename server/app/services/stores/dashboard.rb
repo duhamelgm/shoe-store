@@ -1,6 +1,6 @@
 # Get total sales and inventory for all stores
 module Stores
-  class MetricsDashboard
+  class Dashboard
     def initialize
     end
 

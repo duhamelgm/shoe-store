@@ -1,6 +1,6 @@
 class StoresController < ApplicationController
-  def metrics_dashboard
-    data = Stores::MetricsDashboard.new.call
+  def dashboard
+    data = Stores::Dashboard.new.call
     render json: data
   end
 end

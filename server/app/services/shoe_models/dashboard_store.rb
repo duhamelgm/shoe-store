@@ -1,6 +1,6 @@
 # Get shoe models inventory and sales by store
 module ShoeModels
-  class MetricsDashboardStore
+  class DashboardStore
     def initialize(store_id:)
       @store_id = store_id
     end

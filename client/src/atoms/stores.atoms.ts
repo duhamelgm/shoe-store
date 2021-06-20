@@ -32,7 +32,7 @@ export const fetchStoresMetricsDashboardAtom = atom(
     const getResponse = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/stores/metrics/dashboard"
+          "http://localhost:3000/api/stores/dashboard"
         );
         const data = await response.json();
 

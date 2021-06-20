@@ -9,7 +9,7 @@ export default function Header() {
       // Hardcoding /store/:id route
       if (
         pathname === location.pathname ||
-        (pathname === "/" && location.pathname.includes("/stores"))
+        (pathname === "/stores" && location.pathname.includes("/stores"))
       )
         return "bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium";
 
@@ -26,6 +26,14 @@ export default function Header() {
             <div className="block sm:ml-6">
               <div className="flex space-x-4">
                 <Link to="/" className={getClassName("/")} aria-current="page">
+                  Dashboard
+                </Link>
+
+                <Link
+                  to="/stores"
+                  className={getClassName("/stores")}
+                  aria-current="page"
+                >
                   Stores
                 </Link>
 

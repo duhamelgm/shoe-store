@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Home from "./Pages/Home";
+import Stores from "./Pages/Stores";
 import Store from "./Pages/Store";
 import Events from "./Pages/Events";
 import Header from "./Components/Layout/Header";
@@ -15,6 +16,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/stores">
+            <Stores />
           </Route>
           <Route exact path="/stores/:id">
             <Suspense fallback={<h2>Loading...</h2>}>

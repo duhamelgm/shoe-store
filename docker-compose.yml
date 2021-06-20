@@ -1,3 +1,5 @@
+version: "3"
+
 services:
   # Services: DB, ES and Redis
   db:
@@ -55,9 +57,10 @@ services:
   # Backend Sidekiq instance
   worker:
     image: shoe-store_server
-    command: bundle exec sidekiq -e ${RAILS_ENV:-development} -c 10 -q default
+    command: ["./wait-for-es-worker.sh"]
     volumes:
       - ./server:/app
+      - ./scripts/wait-for-es-worker.sh:/app/wait-for-es-worker.sh
     environment:
       RAILS_ENV: development
       ELASTICSEARCH_URL: http://elasticsearch:9200

@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   post "/graphql", to: "graphql#execute"
 
-  get "/api/stores/metrics/dashboard", to: "stores#metrics_dashboard"
-  get "/api/shoe_models/metrics/dashboard_store", to: "shoe_models#metrics_dashboard_store"
+  get "/api/stores/dashboard", to: "stores#dashboard"
+  get "/api/shoe_models/dashboard_store", to: "shoe_models#dashboard_store"
   get "/api/actions", to: "actions#index"
+  get "/api/metrics/orders_histogram", to: "metrics#orders_histogram"
+  get "/api/metrics/inventory_sales_histogram", to: "metrics#inventory_sales_histogram"
 end

@@ -58,7 +58,7 @@ export const fetchShoeModelsByStoreMetricsDashboard = atom(
     const getResponse = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/shoe_models/metrics/dashboard_store?store_id=${storeId}`
+          `http://localhost:3000/api/shoe_models/dashboard_store?store_id=${storeId}`
         );
         const data = await response.json();
 
