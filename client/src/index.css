@@ -21,6 +21,11 @@ code {
   margin-left: 5px;
   font-size: 13px;
 }
+.list-icon {
+  display: inline;
+  font-size: 14px;
+  margin-right: 5px;
+}
 
 hr {
   border-color: #d1d5db;

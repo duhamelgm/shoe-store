@@ -7,3 +7,7 @@ export const getHoursAndMinutes = (date: Date): string => {
 
   return `${date.getHours()}:${minutes}:${seconds}`;
 };
+
+export const getTimestamp = (date: Date): string => {
+  return new Date(date).toLocaleString("en-US");
+};

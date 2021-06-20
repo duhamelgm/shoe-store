@@ -56,7 +56,7 @@ export default function ShoeModelsTable({ storeId }: { storeId: string }) {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Total Orders
+                    Orders
                   </th>
                 </tr>
               </thead>

@@ -5,6 +5,27 @@ import {
   ShoeModelsMetricsDashboardInterface
 } from "../types/shoeModels.types";
 
+export const fetchShoeModelsAtom = atom(async (get): Promise<
+  Array<ShoeModelInterface>
+> => {
+  try {
+    const response = await fetch("http://localhost:3000/graphql", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        query: `{shoeModels {id, name }}`
+      })
+    });
+    return (await response.json()).data.shoeModels;
+  } catch (err) {
+    console.log(err);
+  }
+
+  return [];
+});
+
 export const shoeModelsByStore = atom<Array<ShoeModelInterface>>([]);
 export const fetchShoeModelsByStore = atom(
   (get) => get(shoeModelsByStore),

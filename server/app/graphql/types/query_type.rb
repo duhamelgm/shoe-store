@@ -10,16 +10,20 @@ module Types
 
     field :stores, [StoreType], null: true
     def stores
-      Store.all
+      Store.all.order('name ASC')
     end
 
     # Shoe Models
+    field :shoe_models, [ShoeModelType], null: true
+    def shoe_models
+      ShoeModel.all
+    end
+
     field :shoe_models_by_store, [ShoeModelType], null: true do
       argument :store_id, ID, required: true
     end
     def shoe_models_by_store(store_id:)
       ShoeModel.includes(:inventories).where("inventories.store_id": store_id).order('name ASC')
     end
-
   end
 end
